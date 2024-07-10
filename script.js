@@ -110,6 +110,12 @@ function crea_pdf() {
 	const w_foglio = arrotonda(xu - xa)
 	const h_foglio = arrotonda(yj - ya)
 	
+	const w_abbondanza = arrotonda(xt - xb)
+	const h_abbondanza = arrotonda(yi - yb)
+	
+	const w_taglio = arrotonda(xt - xb)
+	const h_taglio = arrotonda(yi - yb)
+	
 	const w_aletta = aletta
 	const h_aletta = h_pagina
 
@@ -122,25 +128,102 @@ function crea_pdf() {
 		format: [w_foglio, h_foglio]
 	});
 	
-	doc.text("Dimensioni: " + w_foglio.toFixed(2) + ", " + h_foglio.toFixed(2), arrotonda(w_foglio / 2), arrotonda(h_foglio / 2));
+	doc.setFont("Courier", "bold");
+	doc.setFontSize(10);
+	doc.text("Dimensioni: " + w_foglio.toFixed(2) + ", " + h_foglio.toFixed(2), xn, arrotonda(h_pagina / 2), null, null, "center");
+	
 	//doc.save("two-by-four.pdf");
 	
+	// ASSE ORIZZONTALE
 	doc.setLineWidth(0.1);
-	doc.setDrawColor(0, 0, 0);
-	doc.setLineDash([1, 1, 1]);
+	doc.setDrawColor(128, 128, 128);
+	doc.setLineDash([3, 1, 0.1, 1]);
 	doc.line(xb, ye, xt, ye);
 	
+	// ASSE CENTRO COPERTINA
+	doc.setLineWidth(0.1);
+	doc.setDrawColor(128, 128, 128);
+	doc.setLineDash([3, 1, 0.1, 1]);
+	doc.line(xn, yb, xn, yi);
+	
+	// RETTANGOLO DI ABBONDANZA
 	doc.setLineWidth(0.1);
 	doc.setDrawColor(255, 0, 0);
 	doc.setLineDash();
-	doc.rect(xb, yb, arrotonda(xt - xb), arrotonda(yi - yb));
+	doc.rect(xb, yb, w_abbondanza, h_abbondanza);
 	
+	// ALETTE
 	if (aletta > 0) {
 		doc.setLineWidth(0.1);
 		doc.setDrawColor(0, 0, 255);
 		doc.setLineDash();
+		
 		doc.rect(xc, yc, w_aletta, h_aletta);
+		doc.rect(xp, yc, w_aletta, h_aletta);	
 	}	
+	
+	// PAGINE
+	doc.setLineWidth(0.1);
+	doc.setDrawColor(0, 0, 255);
+	doc.setLineDash();
+	
+	doc.rect(xf, yc, w_pagina, h_pagina);
+	doc.rect(xl, yc, w_pagina, h_pagina);
+	
+	// DORSO 
+	doc.setLineWidth(0.1);
+	doc.setDrawColor(0, 0, 255);
+	doc.setLineDash();
+	
+	doc.rect(xj, yc, w_dorso, h_pagina);
+	
+	// LINEE DI TAGLIO E DI PIEGA
+	doc.setLineWidth(0.1);
+	doc.setDrawColor(255, 0, 0);
+	doc.setLineDash();
+	
+	doc.line(xa, yc, xb, yc);
+	doc.line(xa, yh, xb, yh);
+	
+	doc.line(xt, yc, xu, yc);
+	doc.line(xt, yh, xu, yh);
+	
+	doc.line(xc, ya, xc, yb);
+	doc.line(xc, yi, xc, yj);
+	
+	doc.line(xc, ya, xc, yb);
+	doc.line(xc, yi, xc, yj); 
+	
+	doc.line(xj, ya, xj, yb);
+	doc.line(xj, yi, xj, yj);
+	
+	doc.line(xl, ya, xl, yb);
+	doc.line(xl, yi, xl, yj);
+	
+	doc.line(xp, ya, xp, yb);
+	doc.line(xp, yi, xp, yj);
+	
+	doc.line(xs, ya, xs, yb);
+	doc.line(xs, yi, xs, yj);
+	
+	if (aletta > 0) {
+		doc.setLineWidth(0.1);
+		doc.setDrawColor(255, 0, 0);
+		doc.setLineDash();
+		
+		doc.line(xf, ya, xf, yb);
+		doc.line(xf, yi, xf, yj);
+		
+		doc.line(xp, ya, xp, yb);
+		doc.line(xp, yi, xp, yj);
+	}	
+	
+	// ISBN 
+	doc.setLineWidth(0.1);
+	doc.setDrawColor(0, 0, 0);
+	doc.setLineDash();
+	
+	doc.rect(xh, yf, w_isbn, h_isbn);
 	
 	window.open(doc.output('bloburl'));
 }
