@@ -155,7 +155,7 @@ function crea_pdf() {
 	// ALETTE
 	if (aletta > 0) {
 		doc.setLineWidth(0.1);
-		doc.setDrawColor(0, 0, 255);
+		doc.setDrawColor(0, 0, 0);
 		doc.setLineDash();
 		
 		doc.rect(xc, yc, w_aletta, h_aletta);
@@ -164,7 +164,7 @@ function crea_pdf() {
 	
 	// PAGINE
 	doc.setLineWidth(0.1);
-	doc.setDrawColor(0, 0, 255);
+	doc.setDrawColor(0, 0, 0);
 	doc.setLineDash();
 	
 	doc.rect(xf, yc, w_pagina, h_pagina);
@@ -172,10 +172,23 @@ function crea_pdf() {
 	
 	// DORSO 
 	doc.setLineWidth(0.1);
-	doc.setDrawColor(0, 0, 255);
+	doc.setDrawColor(0, 0, 0);
 	doc.setLineDash();
 	
 	doc.rect(xj, yc, w_dorso, h_pagina);
+	
+	// MARGINI DI SICUREZZA
+	doc.setLineWidth(0.1);
+	doc.setDrawColor(0, 0, 128);
+	doc.setLineDash([1, 1]);
+	
+	if (aletta > 0) {
+		doc.rect(xd, yd, arrotonda(aletta - margine * 2), arrotonda(h_pagina - margine * 2));
+		doc.rect(xq, yd, arrotonda(aletta - margine * 2), arrotonda(h_pagina - margine * 2));
+	}	
+	
+	doc.rect(xg, yd, arrotonda(w_pagina - margine * 2), arrotonda(h_pagina - margine * 2));
+	doc.rect(xm, yd, arrotonda(w_pagina - margine * 2), arrotonda(h_pagina - margine * 2));
 	
 	// LINEE DI TAGLIO E DI PIEGA
 	doc.setLineWidth(0.1);
