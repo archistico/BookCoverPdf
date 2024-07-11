@@ -18,18 +18,23 @@
     </header>
     <main>
         <div class="container">
-            <h2>Creazione copertina</h2>
-            <p class="spiegazione">Inserire i dati in ogni campo e poi cliccare il tasto CREA per visualizzare il pdf</p>
-            <p class="spiegazione">Il dorso viene calcolato in base al numero di pagine, al tipo di carta e alla rilegatura, o può essere sovrascritto inserendo direttamente il valore nel campo apposito.</p>
-			<label for="html_larghezza_pagina">Larghezza pagina [mm]</label>
-            <input name="html_larghezza_pagina" id="html_larghezza_pagina" type="number" min="0" max="10000" value="150" step="1">
-			
-			<label for="html_altezza_pagina">Altezza pagina [mm]</label>
-            <input name="html_altezza_pagina" id="html_altezza_pagina" type="number" min="0" max="10000" value="210" step="1">
-			
+            <h2>Info</h2>
+            <p class="spiegazione">Inserire i dati in ogni campo e poi cliccare il tasto CREA per visualizzare il pdf
+            </p>
+            <p class="spiegazione">Il dorso viene calcolato in base al numero di pagine, al tipo di carta e alla
+                rilegatura, o può essere sovrascritto inserendo direttamente il valore nel campo apposito.</p>
+            <label for="html_larghezza_pagina">Larghezza pagina [mm]</label>
+            <input name="html_larghezza_pagina" id="html_larghezza_pagina" type="number" min="0" max="10000" value="150"
+                step="1">
+
+            <label for="html_altezza_pagina">Altezza pagina [mm]</label>
+            <input name="html_altezza_pagina" id="html_altezza_pagina" type="number" min="0" max="10000" value="210"
+                step="1">
+
             <label for="html_pagine">Numero di pagine</label>
-            <input name="html_pagine" id="html_pagine" onchange="onChangeValue()" type="number" min="2" max="2000" value="80" step="1">
-            
+            <input name="html_pagine" id="html_pagine" onchange="onChangeValue()" type="number" min="2" max="2000"
+                value="160" step="1">
+
             <label for="html_carta">Scegli il tipo di carta</label>
             <select name="html_carta" id="html_carta" onchange="onChangeValue()">
                 <option value="uso-mano-avorio-80g">Uso Mano (Avorio - 80g)</option>
@@ -49,37 +54,40 @@
             <label for="html_rilegatura">Seleziona la rilegatura</label>
             <select name="html_rilegatura" id="html_rilegatura" onchange="onChangeValue()">
                 <option value="fresata" selected>Fresata</option>
-                <option value="cucita">Cucita</option>                
+                <option value="cucita">Cucita</option>
             </select>
-			
-			<label for="html_dorso">Larghezza dorso [mm]</label>
+
+            <label for="html_dorso">Larghezza dorso [mm]</label>
             <input name="html_dorso" id="html_dorso" type="number" min="0" max="10000" value="10" step="0.1">
-			
-			<label for="html_abbondanza">Abbondanza [mm]</label>
+
+            <label for="html_abbondanza">Abbondanza [mm]</label>
             <input name="html_abbondanza" id="html_abbondanza" type="number" min="0" max="100" value="3" step="1">
-			
-			<label for="html_taglio">Dimensione segni di taglio [mm]</label>
+
+            <label for="html_taglio">Dimensione segni di taglio [mm]</label>
             <input name="html_taglio" id="html_taglio" type="number" min="0" max="1000" value="3" step="1">
-			
-			<label for="html_margine">Margine interno di sicurezza [mm]</label>
+
+            <label for="html_margine">Margine interno di sicurezza [mm]</label>
             <input name="html_margine" id="html_margine" type="number" min="0" max="1000" value="5" step="1">
-			
-			<label for="html_aletta">Aletta [mm]</label>
+
+            <label for="html_aletta">Aletta [mm]</label>
             <input name="html_aletta" id="html_aletta" type="number" min="0" max="10000" value="85" step="1">
-			
-			<label for="html_larghezza_isbn">Larghezza ISBN [mm]</label>
-            <input name="html_larghezza_isbn" id="html_larghezza_isbn" type="number" min="0" max="10000" value="35" step="0.1">
-			
-			<label for="html_altezza_isbn">Altezza ISBN [mm]</label>
-            <input name="html_altezza_isbn" id="html_altezza_isbn" type="number" min="0" max="10000" value="25" step="0.1">
-			
-			<label for="html_isbn">ISBN</label>
+
+            <label for="html_larghezza_isbn">Larghezza ISBN [mm]</label>
+            <input name="html_larghezza_isbn" id="html_larghezza_isbn" type="number" min="0" max="10000" value="42"
+                step="0.1">
+
+            <label for="html_altezza_isbn">Altezza ISBN [mm]</label>
+            <input name="html_altezza_isbn" id="html_altezza_isbn" type="number" min="0" max="10000" value="25"
+                step="0.1">
+
+            <label for="html_isbn">ISBN</label>
             <input name="html_isbn" id="html_isbn" type="text" value="9788897192091">
-			
-			<label for="html_asse_orizzontale">Asse orizzontale dal bordo inferiore [mm]</label>
-            <input name="html_asse_orizzontale" id="html_asse_orizzontale" type="number" min="0" max="10000" value="30" step="0.1">
-			
-			<button type="submit" class="" onclick="crea_pdf()">CREA PDF</button>
+
+            <label for="html_asse_orizzontale">Asse orizzontale dal bordo inferiore [mm]</label>
+            <input name="html_asse_orizzontale" id="html_asse_orizzontale" type="number" min="0" max="10000" value="35"
+                step="0.1">
+
+            <button type="submit" class="" onclick="crea_pdf()">CREA PDF</button>
         </div>
     </main>
     <footer>
@@ -88,7 +96,7 @@
             <p class="copyright">2024 © Emilie Rollandin</p>
         </div>
     </footer>
-	<script src="./jspdf.umd.min.js"></script>
+    <script src="./jspdf.umd.min.js"></script>
     <script src="./script.js" defer></script>
 </body>
 
