@@ -23,6 +23,19 @@
             </p>
             <p class="spiegazione">Il dorso viene calcolato in base al numero di pagine, al tipo di carta e alla
                 rilegatura, o può essere sovrascritto inserendo direttamente il valore nel campo apposito.</p>
+            <label for="html_formato_pagina">Formato pagina rapido</label>
+            <select name="html_formato_pagina" id="html_formato_pagina" onchange="applicaFormatoPagina()">
+                <option value="custom" selected>Personalizzato</option>
+                <option value="120x190">120 x 190 mm</option>
+                <option value="130x200">130 x 200 mm</option>
+                <option value="135x210">135 x 210 mm</option>
+                <option value="140x210">140 x 210 mm</option>
+                <option value="148x210">148 x 210 mm</option>
+                <option value="150x210">150 x 210 mm</option>
+                <option value="160x230">160 x 230 mm</option>
+                <option value="170x240">170 x 240 mm</option>
+            </select>
+
             <label for="html_larghezza_pagina">Larghezza pagina [mm]</label>
             <input name="html_larghezza_pagina" id="html_larghezza_pagina" type="number" min="0" max="10000" value="150"
                 step="1">
@@ -34,6 +47,13 @@
             <label for="html_pagine">Numero di pagine</label>
             <input name="html_pagine" id="html_pagine" onchange="onChangeValue()" type="number" min="2" max="2000"
                 value="160" step="1">
+
+            <label for="html_tipografia">Scegli la tipografia</label>
+            <select name="html_tipografia" id="html_tipografia" onchange="onChangeTipografia()">
+                <option value="universalbook" selected>UniversalBook</option>
+                <option value="elui-tipografia">Elui Tipografia</option>
+                <option value="generica">Generica / da verificare</option>
+            </select>
 
             <label for="html_carta">Scegli il tipo di carta</label>
             <select name="html_carta" id="html_carta" onchange="onChangeValue()">
@@ -59,6 +79,11 @@
 
             <label for="html_dorso">Larghezza dorso [mm]</label>
             <input name="html_dorso" id="html_dorso" type="number" min="0" max="10000" value="10" step="0.1">
+            <p id="html_dorso_calcolato" class="nota-campo">Dorso calcolato: 10,0 mm</p>
+            <label class="checkbox-inline" for="html_blocca_dorso_manual">
+                <input name="html_blocca_dorso_manual" id="html_blocca_dorso_manual" type="checkbox">
+                Blocca valore dorso manuale
+            </label>
 
             <label for="html_abbondanza">Abbondanza [mm]</label>
             <input name="html_abbondanza" id="html_abbondanza" type="number" min="0" max="100" value="3" step="1">
@@ -73,21 +98,50 @@
             <input name="html_aletta" id="html_aletta" type="number" min="0" max="10000" value="85" step="1">
 
             <label for="html_larghezza_isbn">Larghezza ISBN [mm]</label>
-            <input name="html_larghezza_isbn" id="html_larghezza_isbn" type="number" min="0" max="10000" value="42"
+            <input name="html_larghezza_isbn" id="html_larghezza_isbn" type="number" min="41.25" max="10000" value="42"
                 step="0.1">
 
             <label for="html_altezza_isbn">Altezza ISBN [mm]</label>
-            <input name="html_altezza_isbn" id="html_altezza_isbn" type="number" min="0" max="10000" value="25"
+            <input name="html_altezza_isbn" id="html_altezza_isbn" type="number" min="25" max="10000" value="25"
                 step="0.1">
 
             <label for="html_isbn">ISBN</label>
             <input name="html_isbn" id="html_isbn" type="text" value="9788897192091">
+            <button type="button" class="button-secondario" onclick="completa_isbn()">CALCOLA / CORREGGI CHECK DIGIT ISBN</button>
 
             <label for="html_asse_orizzontale">Asse orizzontale dal bordo inferiore [mm]</label>
             <input name="html_asse_orizzontale" id="html_asse_orizzontale" type="number" min="0" max="10000" value="35"
                 step="0.1">
 
-            <button type="submit" class="" onclick="crea_pdf()">CREA PDF</button>
+            <label class="checkbox-inline" for="html_disegna_guide">
+                <input name="html_disegna_guide" id="html_disegna_guide" type="checkbox" checked>
+                Disegna linee e guide tecniche
+            </label>
+
+            <label class="checkbox-inline" for="html_mostra_dati_tecnici">
+                <input name="html_mostra_dati_tecnici" id="html_mostra_dati_tecnici" type="checkbox">
+                Mostra dati tecnici nel PDF
+            </label>
+
+            <label for="html_nome_file_pdf">Nome file PDF</label>
+            <input name="html_nome_file_pdf" id="html_nome_file_pdf" type="text" value="copertina.pdf">
+
+            <label class="checkbox-inline" for="html_scarica_pdf">
+                <input name="html_scarica_pdf" id="html_scarica_pdf" type="checkbox">
+                Scarica direttamente il PDF invece di aprirlo
+            </label>
+
+            <div class="azioni-secondarie">
+                <button type="button" class="button-secondario" onclick="salva_preset_locale()">SALVA PRESET</button>
+                <button type="button" class="button-secondario" onclick="carica_preset_locale()">CARICA PRESET</button>
+                <button type="button" class="button-secondario" onclick="esporta_parametri_json()">ESPORTA PARAMETRI</button>
+                <button type="button" class="button-secondario" onclick="apri_importa_parametri_json()">IMPORTA PARAMETRI</button>
+            </div>
+            <input id="html_importa_parametri_json" type="file" accept="application/json,.json" hidden onchange="importa_parametri_json(event)">
+
+            <div id="html_messaggi" class="messaggi" hidden></div>
+
+            <button type="button" class="" onclick="crea_pdf()">CREA PDF</button>
         </div>
     </main>
     <footer>
@@ -97,6 +151,9 @@
         </div>
     </footer>
     <script src="./jspdf.umd.min.js"></script>
+    <script src="./isbn.js" defer></script>
+    <script src="./geometry.js" defer></script>
+    <script src="./tipografie.js" defer></script>
     <script src="./script.js" defer></script>
 </body>
 

@@ -322,3 +322,78 @@ textarea {
 input:hover, select:hover, textarea:hover {
     background-color: white;
 }
+/* ::: VALIDAZIONE / OPZIONI ::: */
+.nota-campo {
+    margin-top: -5px;
+    margin-bottom: 10px;
+    font-size: 0.9em;
+    font-style: italic;
+}
+
+.checkbox-inline {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 10px 0 20px 0;
+}
+
+.checkbox-inline input[type="checkbox"] {
+    width: auto;
+    margin: 0;
+}
+
+.messaggi {
+    margin-top: 20px;
+    padding: 15px 20px;
+    border: 1px solid black;
+    background-color: white;
+}
+
+.messaggi strong {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 900;
+}
+
+.messaggi ul {
+    margin-left: 20px;
+    margin-bottom: 10px;
+}
+
+.messaggi li {
+    margin-bottom: 5px;
+}
+
+.messaggi-errore {
+    border-width: 2px;
+}
+
+.messaggi-avviso:not(.messaggi-errore) {
+    border-style: dashed;
+}
+
+/* ::: AZIONI SECONDARIE ::: */
+.button-secondario {
+    height: 42px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    font-size: 0.85em;
+}
+
+.azioni-secondarie {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.azioni-secondarie button {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+@media only screen and (min-width: 540px) {
+    .azioni-secondarie {
+        grid-template-columns: 1fr 1fr;
+    }
+}
