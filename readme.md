@@ -4,6 +4,8 @@ BookCover PDF è una piccola applicazione HTML/JavaScript per generare la base t
 
 Serve come punto di partenza per il lavoro grafico della casa editrice: l'app calcola la larghezza complessiva della copertina, il dorso, le eventuali alette, le linee tecniche, l'ISBN/EAN-13 e la riga orizzontale usata come riferimento grafico per la zona bassa della copertina.
 
+[Demo](https://archistico.github.io/BookCoverPdf/)
+
 ![Schermata dell'app](screenshot.png)
 
 ## Esempio di PDF generato
